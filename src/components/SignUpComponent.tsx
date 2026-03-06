@@ -1,4 +1,5 @@
 import { useState } from "react";
+import API_URL from "../config/api";
 
 export default function SignUpComponent() {
     const [username, setUserName] = useState("");
@@ -14,7 +15,7 @@ export default function SignUpComponent() {
         formData.append("username", username);
         formData.append("password", password);
         formData.append("role", "student");
-        const response = await fetch('http://localhost:8080/auth/signup', {
+        const response = await fetch(`${API_URL}/auth/signup`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

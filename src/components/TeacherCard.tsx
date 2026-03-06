@@ -1,5 +1,6 @@
 import TeacherAvatar from '../assets/TeacherAvatar.jpg';
 import { useState } from 'react';
+import API_URL from "../config/api";
 
 type TeacherCardProps = {
     teacherId: number;
@@ -21,7 +22,7 @@ export default function TeacherCard({teacherId, name, email, phoneNumber, onUpda
         //call api to delete this teacher
         const formData = new URLSearchParams();
         formData.append("id", teacherId.toString());
-        const response = fetch('http://localhost:8080/teachers/delete', {
+        const response = fetch(`${API_URL}/teachers/delete`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -42,7 +43,7 @@ export default function TeacherCard({teacherId, name, email, phoneNumber, onUpda
 		formData.append("email", editedTeacherEmail);
 		formData.append("phoneNumber", editedTeacherPhoneNumber);
 
-		const response = fetch("http://localhost:8080/teachers/update", {
+		const response = fetch(`${API_URL}/teachers/update`, {
 			method: "PUT",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",

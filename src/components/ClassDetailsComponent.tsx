@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getAccessToken } from "../utils/AuthUtils";
 import { Trash2 } from "lucide-react";
+import API_URL from "../config/api";
 
 export default function ClassDetailsComponent() {
     const [showAddStudentModal, setShowAddStudentModal] = useState(false);
@@ -41,7 +42,7 @@ export default function ClassDetailsComponent() {
         }
         formData.append("classId", classId);
 
-        const response = await fetch(`http://localhost:8080/classes/class-detail`, {
+        const response = await fetch(`${API_URL}/classes/class-detail`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -68,7 +69,7 @@ export default function ClassDetailsComponent() {
         }
         formData.append("classId", classId);
 
-        const response = await fetch(`http://localhost:8080/classes/get-list-students-of-class`, {
+        const response = await fetch(`${API_URL}/classes/get-list-students-of-class`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -109,7 +110,7 @@ export default function ClassDetailsComponent() {
         const formData = new URLSearchParams();
         formData.append("classId", classId || "");
         formData.append("studentId", newStudentId.toString());
-        const response = await fetch('http://localhost:8080/classes/add-student-to-class', {
+        const response = await fetch(`${API_URL}/classes/add-student-to-class`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -139,7 +140,7 @@ export default function ClassDetailsComponent() {
         const formData = new URLSearchParams();
         formData.append("classId", classId || "");
         formData.append("studentId", studentId.toString());
-        const response = await fetch(`http://localhost:8080/classes/remove-student-from-class`, {
+        const response = await fetch(`${API_URL}/classes/remove-student-from-class`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

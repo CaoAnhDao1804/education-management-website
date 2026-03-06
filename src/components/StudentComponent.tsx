@@ -1,6 +1,7 @@
 import { Edit, Trash2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getAccessToken } from "../utils/AuthUtils";
+import API_URL from "../config/api";
 
 export default function StudentComponent() {
 
@@ -28,7 +29,7 @@ export default function StudentComponent() {
     }, [filterValue]);
 
     async function refreshStudentList() {
-        const response = await fetch("http://localhost:8080/students/all", {
+        const response = await fetch(`${API_URL}/students/all`, {
             headers: {
                 "Authorization": `Bearer ${getAccessToken()}`
             }
@@ -61,7 +62,7 @@ export default function StudentComponent() {
         formData.append("email", newEmail);
         formData.append("birthday", newBirthday);
         formData.append("phoneNumber", newPhoneNumber);
-        await fetch('http://localhost:8080/students/add', {
+        await fetch(`${API_URL}/students/add`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -87,7 +88,7 @@ export default function StudentComponent() {
         formData.append("email", editingStudent.email);
         formData.append("birthday", editingStudent.birthday);
         formData.append("phoneNumber", editingStudent.phoneNumber);
-        await fetch('http://localhost:8080/students/update', {
+        await fetch(`${API_URL}/students/update`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -113,7 +114,7 @@ export default function StudentComponent() {
     async function handleDeleteStudent() {
         const formData = new URLSearchParams();
         formData.append("id", deletedStudent.studentId.toString());
-        await fetch('http://localhost:8080/students/delete', {
+        await fetch(`${API_URL}/students/delete`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

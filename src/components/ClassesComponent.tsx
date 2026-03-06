@@ -1,6 +1,7 @@
 import { Edit, Trash2 } from "lucide-react";
 import { ChangeEvent, ChangeEventHandler, useEffect, useState } from "react";
 import { getAccessToken } from "../utils/AuthUtils";
+import API_URL from "../config/api";
 
 export default function ClassesComponent() {
     const [isShowConfirmDeleteModal, setIsShowConfirmDeleteModal] = useState(false);
@@ -57,7 +58,7 @@ export default function ClassesComponent() {
     }, []);
 
     async function refreshTeacherList() {
-        const response = await fetch("http://localhost:8080/teachers/all", {
+        const response = await fetch(`${API_URL}/teachers/all`, {
             method: 'GET',
             headers: {
                 "Authorization": `Bearer ${getAccessToken()}`,
@@ -77,7 +78,7 @@ export default function ClassesComponent() {
     }
 
     function refreshClassList() {
-        fetch("http://localhost:8080/classes/allDetail", {
+        fetch(`${API_URL}/classes/allDetail`, {
             method: 'GET',
             headers: {
                 "Authorization": `Bearer ${getAccessToken()}`,
@@ -93,7 +94,7 @@ export default function ClassesComponent() {
     }
 
     function refreshCourseList() {
-        fetch("http://localhost:8080/courses/all", {
+        fetch(`${API_URL}/courses/all`, {
             method: 'GET',
             headers: {
                 "Authorization": `Bearer ${getAccessToken()}`,
@@ -111,7 +112,7 @@ export default function ClassesComponent() {
     async function handleDeleteClass() {
         const formData = new URLSearchParams();
         formData.append("classId", deletedClass.classId.toString());
-        await fetch('http://localhost:8080/classes/delete', {
+        await fetch(`${API_URL}/classes/delete`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -149,7 +150,7 @@ export default function ClassesComponent() {
         formData.append("teacherId", newClass.teacherId);
         formData.append("courseId", newClass.courseId);
         formData.append("startDate", newClass.startDate);
-        await fetch('http://localhost:8080/classes/add', {
+        await fetch(`${API_URL}/classes/add`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -187,7 +188,7 @@ export default function ClassesComponent() {
         const formData = new URLSearchParams();
         formData.append("classId", editingClass.classId.toString());
         formData.append("studentId", newStudentId.toString());
-        const response = await fetch('http://localhost:8080/classes/add-student-to-class', {
+        const response = await fetch(`${API_URL}/classes/add-student-to-class`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -224,7 +225,7 @@ export default function ClassesComponent() {
         formData.append("teacherId", editingClass.teacherId);
         formData.append("courseId", editingClass.courseId);
         formData.append("startDate", editingClass.startDate);
-        await fetch('http://localhost:8080/classes/update', {
+        await fetch(`${API_URL}/classes/update`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -271,7 +272,7 @@ export default function ClassesComponent() {
         //     formData.append("startDate", filterStartDateValue);
         // }
 
-        fetch("http://localhost:8080/classes/allDetailBySearch", {
+        fetch(`${API_URL}/classes/allDetailBySearch`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

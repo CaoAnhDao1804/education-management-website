@@ -1,5 +1,6 @@
 import { ChangeEvent, useState, useEffect, ChangeEventHandler } from "react";
 import { getAccessToken, getUserRole } from "../utils/AuthUtils";
+import API_URL from "../config/api";
 
 export default function CourseComponent() {
     const [showAddModal, setShowAddModal] = useState(false);
@@ -29,7 +30,7 @@ export default function CourseComponent() {
     }, [filterValue]); //dependency object
 
     async function refreshCourseList() {
-        const response = await fetch("http://localhost:8080/courses/all", {
+        const response = await fetch(`${API_URL}/courses/all`, {
             headers: {
                 "Authorization": `Bearer ${getAccessToken()}`
             }
@@ -85,7 +86,7 @@ export default function CourseComponent() {
         formData.append("courseDescription", newCourseName);
         formData.append("duration", newCourseDuration.toString());
         formData.append("details", newCourseDetails);
-        const response = fetch('http://localhost:8080/courses/add', {
+        const response = fetch(`${API_URL}/courses/add`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -147,7 +148,7 @@ export default function CourseComponent() {
         formData.append("courseDescription", editingCourse.description);
         formData.append("duration", editingCourse.duration?.toString() || "0");
         formData.append("details", editingCourse.details || "");
-        const response = fetch('http://localhost:8080/courses/update', {
+        const response = fetch(`${API_URL}/courses/update`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -168,7 +169,7 @@ export default function CourseComponent() {
         const token = localStorage.getItem("accessToken");
         const formData = new URLSearchParams();
         formData.append("id", deletedCourse.courseId.toString());
-        const response = await fetch('http://localhost:8080/courses/delete', {
+        const response = await fetch(`${API_URL}/courses/delete`, {
             method: 'DELETE',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

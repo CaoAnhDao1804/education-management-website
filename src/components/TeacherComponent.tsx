@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import TeacherCard from './TeacherCard';
+import API_URL from "../config/api";
 
 
 export default function TeacherComponent() {
@@ -32,7 +33,7 @@ export default function TeacherComponent() {
 		formData.append("email", newTeacherEmail);
 		formData.append("phoneNumber", newTeacherPhoneNumber);
 
-		const response = fetch("http://localhost:8080/teachers/add", {
+		const response = fetch(`${API_URL}/teachers/add`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -62,7 +63,7 @@ export default function TeacherComponent() {
 
 	async function refreshTeacherList() {
 		const token = localStorage.getItem("accessToken");
-		const response = await fetch("http://localhost:8080/teachers/all", {
+		const response = await fetch(`${API_URL}/teachers/all`, {
 			headers: {
 				"Authorization": `Bearer ${token}`
 			}
@@ -78,7 +79,7 @@ export default function TeacherComponent() {
       	}
 
       	// Gọi API refresh token
-      	const refreshResponse = await fetch(`http://localhost:8080/auth/refresh?refreshToken=${refreshToken}`, {
+      	const refreshResponse = await fetch(`${API_URL}/auth/refresh?refreshToken=${refreshToken}`, {
         method: "POST",
       	});
 

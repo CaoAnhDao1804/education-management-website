@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getAccessToken } from "../utils/AuthUtils";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function CourseDetails() {
     const [course, setCourse] = useState({
         courseId: 0,
@@ -34,7 +36,7 @@ export default function CourseDetails() {
 
         formData.append("id", courseId);
 
-        const response = await fetch(`http://localhost:8080/courses/course-details`, {
+        const response = await fetch(`${API_URL}/courses/course-details`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",

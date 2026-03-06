@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { getAccessToken } from "../utils/AuthUtils";
+import API_URL from "../config/api";
 
 export default function AvailableCourses() {
     const [courses, setCourses] = useState([{
@@ -14,7 +15,7 @@ export default function AvailableCourses() {
     }, []); //dependency object
 
     async function refreshCourseList() {
-        const response = await fetch("http://localhost:8080/courses/all", {
+        const response = await fetch(`${API_URL}/courses/all`, {
             headers: {
                 "Authorization": `Bearer ${getAccessToken()}`
             }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getUserRole } from "../utils/AuthUtils";
+import API_URL from "../config/api";
 
 
 export default function LogInComponent() {
@@ -10,7 +11,7 @@ export default function LogInComponent() {
         const formData = new URLSearchParams();
         formData.append("username", username);
         formData.append("password", password);
-        const response = await fetch('http://localhost:8080/auth/login', {
+        const response = await fetch(`${API_URL}/auth/login`, {
             method: 'POST',
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
