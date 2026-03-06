@@ -22,5 +22,5 @@ export function getUserRole() {
         const token = getAccessToken();
         if (!token) return null;
         const decodedToken = jwtDecode(token);
-        return decodedToken.role;
+        return (decodedToken as any).role;
 }
